@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>💖 برای سکینه</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:#0d0008;
+  color:#ffe0ec;
+  font-family:'Vazirmatn',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── FALLING HEARTS ── */
+.hearts-bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.heart-fall{
+  position:absolute;top:-60px;font-size:1.4rem;
+  animation:fall linear infinite;
+  opacity:0.7;
+}
+@keyframes fall{
+  0%{transform:translateY(-60px) rotate(0deg);opacity:0.8}
+  100%{transform:translateY(110vh) rotate(360deg);opacity:0}
+}
+
+/* ── HERO ── */
+.hero{
+  position:relative;z-index:1;
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:2rem;
+  background:radial-gradient(ellipse at 50% 40%,rgba(180,0,80,0.25) 0%,transparent 70%);
+}
+
+/* big pulsing heart */
+.big-heart{
+  font-size:7rem;
+  animation:heartbeat 1.2s ease-in-out infinite;
+  filter:drop-shadow(0 0 30px rgba(255,80,120,0.7));
+  margin-bottom:1rem;
+}
+@keyframes heartbeat{
+  0%,100%{transform:scale(1)}
+  14%{transform:scale(1.18)}
+  28%{transform:scale(1)}
+  42%{transform:scale(1.12)}
+  70%{transform:scale(1)}
+}
+
+.hero-name{
+  font-size:3.5rem;font-weight:800;
+  background:linear-gradient(90deg,#ff80ab,#ff1a6e,#ff80ab);
+  background-size:200%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:shimmer 3s linear infinite;
+  margin-bottom:0.5rem;
+}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
+
+.hero-sub{font-size:1.1rem;color:#e8a0bf;margin-bottom:2.5rem;line-height:1.8}
+
+/* scroll indicator */
+.scroll-hint{
+  position:absolute;bottom:2rem;
+  display:flex;flex-direction:column;align-items:center;gap:0.4rem;
+  color:#c06080;font-size:0.8rem;
+  animation:bounce2 2s infinite;
+}
+@keyframes bounce2{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+
+/* ── SECTIONS ── */
+.section{
+  position:relative;z-index:1;
+  max-width:700px;margin:0 auto;padding:4rem 2rem;
+  opacity:0;transform:translateY(40px);
+  transition:opacity 0.7s ease,transform 0.7s ease;
+}
+.section.visible{opacity:1;transform:translateY(0)}
+
+.section-card{
+  background:rgba(80,0,30,0.4);
+  border:1px solid rgba(255,100,150,0.2);
+  border-radius:24px;
+  padding:2.5rem;
+  backdrop-filter:blur(10px);
+  text-align:center;
+}
+
+.sec-icon{font-size:3rem;margin-bottom:1rem;display:block;animation:spin-slow 6s linear infinite}
+@keyframes spin-slow{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+.no-spin{animation:none!important}
+.pulse-icon{animation:heartbeat 1.5s ease-in-out infinite!important}
+
+.section-card h2{
+  font-size:1.6rem;font-weight:800;
+  color:#ff80ab;margin-bottom:1rem;
+}
+.section-card p{
+  font-size:1rem;line-height:2;color:#e8b0c8;
+}
+
+/* ── LOVE METER ── */
+.love-meter-wrap{margin-top:1.5rem}
+.love-label{display:flex;justify-content:space-between;font-size:0.85rem;color:#c06080;margin-bottom:0.4rem}
+.love-bar{height:12px;background:rgba(255,100,150,0.15);border-radius:99px;overflow:hidden}
+.love-fill{
+  height:100%;border-radius:99px;
+  background:linear-gradient(90deg,#ff1a6e,#ff80ab);
+  width:0;transition:width 1.5s cubic-bezier(0.22,1,0.36,1);
+}
+
+/* ── FLOATING HEARTS AROUND TEXT ── */
+.float-hearts{
+  display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;
+  margin-top:1.5rem;
+}
+.fh{
+  font-size:1.5rem;
+  animation:float-up 2s ease-in-out infinite;
+}
+.fh:nth-child(2){animation-delay:0.3s}
+.fh:nth-child(3){animation-delay:0.6s}
+.fh:nth-child(4){animation-delay:0.9s}
+.fh:nth-child(5){animation-delay:1.2s}
+@keyframes float-up{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
+
+/* ── MESSAGE BOX ── */
+.msg-box{
+  background:rgba(255,26,110,0.1);
+  border:1px solid rgba(255,80,120,0.3);
+  border-radius:16px;
+  padding:1.5rem;
+  margin-top:1.2rem;
+  font-size:1rem;
+  line-height:2;
+  color:#ffb3cc;
+  font-style:italic;
+}
+
+/* ── STARS ── */
+.stars-bg{position:fixed;inset:0;pointer-events:none;z-index:0}
+.star{position:absolute;width:2px;height:2px;background:#ffb3cc;border-radius:50%;animation:twinkle 3s infinite}
+@keyframes twinkle{0%,100%{opacity:0.2}50%{opacity:1}}
+
+/* ── FINAL SECTION ── */
+.final{
+  position:relative;z-index:1;
+  text-align:center;padding:5rem 2rem;
+}
+.final h1{
+  font-size:2.5rem;font-weight:800;
+  background:linear-gradient(90deg,#ff80ab,#fff,#ff80ab);
+  background-size:200%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:shimmer 2s linear infinite;
+  margin-bottom:1rem;
+}
+.final p{color:#e8a0bf;font-size:1rem;line-height:2}
+.heart-rain{font-size:2rem;display:flex;justify-content:center;gap:0.5rem;flex-wrap:wrap;margin-top:1.5rem}
+.hr-h{animation:heartbeat 1s ease-in-out infinite}
+.hr-h:nth-child(2){animation-delay:0.15s}
+.hr-h:nth-child(3){animation-delay:0.3s}
+.hr-h:nth-child(4){animation-delay:0.45s}
+.hr-h:nth-child(5){animation-delay:0.6s}
+.hr-h:nth-child(6){animation-delay:0.75s}
+.hr-h:nth-child(7){animation-delay:0.9s}
+</style>
+</head>
+<body>
+
+<!-- STARS -->
+<div class="stars-bg" id="stars"></div>
+
+<!-- FALLING HEARTS -->
+<div class="hearts-bg" id="heartsContainer"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="big-heart">💖</div>
+  <div class="hero-name">سکینه</div>
+  <p class="hero-sub">
+    یه اسم که هر بار می‌شنومش<br/>
+    قلبم یه جور دیگه می‌زنه 💓
+  </p>
+  <div class="scroll-hint">
+    <span>پایین اسکرول کن</span>
+    <span>💕</span>
+  </div>
+</section>
+
+<!-- SECTION 1 — احساس -->
+<div class="section" id="s1">
+  <div class="section-card">
+    <span class="sec-icon pulse-icon no-spin">💗</span>
+    <h2>اولین بار که دیدمت</h2>
+    <p>
+      نمی‌دونم چطور توضیح بدم،<br/>
+      ولی از اون لحظه‌ای که دیدمت<br/>
+      یه چیزی توی دلم عوض شد.<br/>
+      انگار دنیا یه رنگ دیگه گرفت. 🌹
+    </p>
+    <div class="float-hearts">
+      <span class="fh">💖</span>
+      <span class="fh">🌸</span>
+      <span class="fh">💕</span>
+      <span class="fh">🌹</span>
+      <span class="fh">💗</span>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2 — عشق‌ام چقدره -->
+<div class="section" id="s2">
+  <div class="section-card">
+    <span class="sec-icon no-spin" style="animation:heartbeat 1s infinite">❤️</span>
+    <h2>چقدر دوستت دارم؟</h2>
+    <div class="love-meter-wrap">
+      <div class="love-label"><span>عشق من به سکینه</span><span id="lovePercent">0%</span></div>
+      <div class="love-bar"><div class="love-fill" id="loveFill"></div></div>
+    </div>
+    <p style="margin-top:1.2rem">
+      به اندازه تمام ستاره‌های آسمون 🌟<br/>
+      به اندازه تمام قلب‌های دنیا 💖<br/>
+      و یه ذره بیشتر...
+    </p>
+  </div>
+</div>
+
+<!-- SECTION 3 — پیام -->
+<div class="section" id="s3">
+  <div class="section-card">
+    <span class="sec-icon">🌺</span>
+    <h2>می‌خوام بدونی که...</h2>
+    <div class="msg-box">
+      "سکینه جان، از ارسام شنیدم که چقد آدم مهربونیه.
+      از وقتی که دیدمت، هر روز به این فکر می‌کنم که چطور 
+      بهتر باشم، چون تو لایق بهترینایی. 
+      دوستت دارم، صادقانه و از ته دل." 💌
+    </div>
+    <div class="float-hearts" style="margin-top:1.2rem">
+      <span class="fh">💌</span>
+      <span class="fh">🥀</span>
+      <span class="fh">💞</span>
+      <span class="fh">🌷</span>
+      <span class="fh">💝</span>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4 — ارسام -->
+<div class="section" id="s4">
+  <div class="section-card">
+    <span class="sec-icon no-spin">🤝</span>
+    <h2>ممنون ارسام جان</h2>
+    <p>
+      ارسام عزیز، خوشحالم که دوستمی 🙏<br/>
+      و خوشحال‌ترم که خواهری مثل سکینه داری.<br/>
+      امیدوارم همیشه شاد باشید هر دوتون. 💛
+    </p>
+  </div>
+</div>
+
+<!-- FINAL -->
+<div class="final" id="final">
+  <h1>سکینه، دوستت دارم 💖</h1>
+  <p>از طرف رهام، با تمام قلبم</p>
+  <div class="heart-rain">
+    <span class="hr-h">💖</span>
+    <span class="hr-h">💕</span>
+    <span class="hr-h">❤️</span>
+    <span class="hr-h">💗</span>
+    <span class="hr-h">💓</span>
+    <span class="hr-h">💞</span>
+    <span class="hr-h">💝</span>
+  </div>
+</div>
+
+<script>
+// Stars
+const starsEl = document.getElementById('stars');
+for(let i=0;i<80;i++){
+  const s = document.createElement('div');
+  s.className='star';
+  s.style.left=Math.random()*100+'%';
+  s.style.top=Math.random()*100+'%';
+  s.style.animationDelay=Math.random()*3+'s';
+  s.style.animationDuration=(2+Math.random()*3)+'s';
+  starsEl.appendChild(s);
+}
+
+// Falling hearts
+const emojis = ['💖','💕','❤️','💗','🌹','💓','💞','🌸','💝','🌺'];
+const hc = document.getElementById('heartsContainer');
+for(let i=0;i<28;i++){
+  const h = document.createElement('div');
+  h.className='heart-fall';
+  h.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+  h.style.left = Math.random()*100+'%';
+  h.style.fontSize = (0.9+Math.random()*1.4)+'rem';
+  h.style.animationDuration = (5+Math.random()*8)+'s';
+  h.style.animationDelay = (Math.random()*8)+'s';
+  hc.appendChild(h);
+}
+
+// Scroll reveal
+const sections = document.querySelectorAll('.section, .final');
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      // love bar animation
+      if(e.target.id==='s2'){
+        setTimeout(()=>{
+          document.getElementById('loveFill').style.width='100%';
+          let n=0;
+          const iv=setInterval(()=>{
+            n=Math.min(n+2,100);
+            document.getElementById('lovePercent').textContent=n+'%';
+            if(n>=100) clearInterval(iv);
+          },25);
+        },300);
+      }
+    }
+  });
+},{threshold:0.2});
+sections.forEach(s=>observer.observe(s));
+</script>
+</body>
+</html>
